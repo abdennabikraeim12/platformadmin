@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { CategoryResponseDto } from './dto/category-response.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { StockDistributionDto } from './dto/stock-distribution.dto';
 
 @Controller('categories')
 export class CategoriesController {
@@ -12,7 +13,10 @@ export class CategoriesController {
   create(@Body() createCategoryDto: CreateCategoryDto): Promise<CategoryResponseDto> {
     return this.categoriesService.create(createCategoryDto);
   }
-
+@Get('stock-distribution')
+  getStockDistribution(): Promise<StockDistributionDto[]> {
+    return this.categoriesService.getStockDistribution();
+  }
   @Get()
   findAll(): Promise<CategoryResponseDto[]> {
     return this.categoriesService.findAll();
@@ -32,7 +36,15 @@ export class CategoriesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
-    return this.categoriesService.remove(+id);
+async remove(@Param('id') id: string) {
+  try {
+    await this.categoriesService.remove(+id);
+    return { message: 'Category deleted successfully' };
+  } catch (error) {
+    throw new HttpException(
+      error.message || 'Failed to delete category',
+      HttpStatus.BAD_REQUEST
+    );
   }
+}
 }
