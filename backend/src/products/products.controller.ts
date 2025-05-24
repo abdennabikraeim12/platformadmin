@@ -4,6 +4,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { ProductResponseDto } from './dto/product-response.dto';
 import { ProductFilterDto } from './dto/product-filter.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { PaginatedResponseDto } from './dto/paginated-response.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -14,10 +15,19 @@ export class ProductsController {
     return this.productsService.create(createProductDto);
   }
 
-  @Get()
-  findAll(@Query() filters: ProductFilterDto): Promise<ProductResponseDto[]> {
-    return this.productsService.findAll(filters);
-  }
+
+@Get()
+async findAll(
+  @Query() filters: ProductFilterDto
+): Promise<PaginatedResponseDto<ProductResponseDto>> {
+  return this.productsService.findAll(filters);
+}
+
+
+  @Get('low-stock')
+async findLowStock(): Promise<ProductResponseDto[]> {
+  return this.productsService.findLowStock();
+}
 
  @Get(':id')
 async findOne(@Param('id') id: string): Promise<ProductResponseDto> {
