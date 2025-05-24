@@ -4,7 +4,7 @@ import { ProductResponseDto } from './dto/product-response.dto';
 import { ProductFilterDto, ProductSortBy } from './dto/product-filter.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { PaginatedResponseDto } from './dto/paginated-response.dto';
+import { PaginatedResponseDto } from "./dto/paginated-response.dto";
 @Injectable()
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
