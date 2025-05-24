@@ -1,10 +1,13 @@
+import { Type } from 'class-transformer';
 import { IsOptional, IsEnum, IsNumber, Min } from 'class-validator';
 
 export enum ProductSortBy {
   NAME = 'name',
+  PRICE = 'price',
   STOCK = 'stock',
   CATEGORY = 'category',
   CREATED_AT = 'createdAt',
+  ORDER_COUNT = 'orderCount',
 }
 
 export enum SortOrder {
@@ -22,6 +25,12 @@ export class ProductFilterDto {
   @IsNumber()
   @Min(1)
   limit?: number = 10;
+
+ @IsOptional()
+  @IsNumber()
+  @Min(1)
+  @Type(() => Number) 
+  categoryId?: number;
 
   @IsOptional()
   @IsEnum(ProductSortBy)
