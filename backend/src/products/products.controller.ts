@@ -4,7 +4,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { ProductResponseDto } from './dto/product-response.dto';
 import { ProductFilterDto } from './dto/product-filter.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { PaginatedResponseDto } from './dto/paginated-response.dto';
+import { PaginatedResponseDto } from "./dto/paginated-response.dto";
 
 @Controller('products')
 export class ProductsController {
