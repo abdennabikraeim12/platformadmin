@@ -1,8 +1,7 @@
-// src/products/dto/product-response.dto.ts
 export class ProductResponseDto {
   id: number;
   name: string;
-  description?: string;
+  description: string | null;
   price: number;
   stock: number;
   category: {
@@ -11,6 +10,7 @@ export class ProductResponseDto {
   };
   createdAt: Date;
   updatedAt: Date;
+  orderCount: number;
   orderItems?: Array<{
     id: number;
     quantity: number;
